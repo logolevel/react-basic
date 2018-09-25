@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function App(props) {
     console.log(props);
@@ -34,5 +35,13 @@ function App(props) {
         </main>
     );
 }
+
+App.propTypes = {
+    title: PropTypes.string
+}
+
+App.defaultProps = {
+    title: 'React Todo'
+};
 
 export default App;
