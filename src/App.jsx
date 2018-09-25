@@ -1,12 +1,13 @@
 import React from 'react';
 
-function App() {
+function App(props) {
+    console.log(props);
     return (
         <main>
             <header>
-                <h1>React Todo</h1>
+                <h1>{props.title}</h1>
             </header>
-            <section classList="todo-list">
+            <section className="todo-list">
                 <div className="todo completed">
                     <button className="checkbox icon">
                         <i className="material-icons">check_box</i>
