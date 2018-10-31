@@ -12,7 +12,7 @@ function Checkbox(props) {
 }
 
 Checkbox.propTypes = {
-    Checked: PropTypes.bool.isRequired,
+    checked: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired
 }
 
