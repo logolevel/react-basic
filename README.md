@@ -1,4 +1,4 @@
 # react-basic
 
 ### Screenshot
-![alt text](publick/image/screenshot.jpg)
+![alt text](public/image/screenshot.jpg)
