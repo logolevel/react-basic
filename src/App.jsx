@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import todos from './todos';
 import Header from './components/Header';
 import Todo from './components/Todo';
+import Form from './components/Form';
 
 class App extends React.Component {
     constructor(props) {
@@ -51,6 +52,8 @@ class App extends React.Component {
                         /> )
                     }
                 </section>
+
+                <Form />
             </main>
         );
     }
