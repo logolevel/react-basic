@@ -36,7 +36,7 @@ class Form extends React.Component {
             <form className="todo-form" onSubmit={this.handleSubmit}>
                 <input
                     type="text"
-                    defaultValue={this.state.title}
+                    value={this.state.title}
                     placeholder="Что нужно сделать?"
                     onChange={this.handleChange} />
 
