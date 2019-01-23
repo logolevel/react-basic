@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import axios from 'axios';
 
 import todos from './todos';
 import Header from './components/Header';
@@ -22,8 +23,8 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3000/api/todos')
-            .then(response => response.json())
+        axios.get('http://localhost:3000/api/todos')
+            .then(response => response.data)
             .then(todos => this.setState({ todos }))
             .catch(error => console.log(error.message));
     }
