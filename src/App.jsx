@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import axios from 'axios';
 
-import todos from './todos';
+// import todos from './todos'; //local version
 import Header from './components/Header';
 import Todo from './components/Todo';
 import Form from './components/Form';
@@ -26,49 +26,64 @@ class App extends React.Component {
         axios.get('http://localhost:3000/api/todos')
             .then(response => response.data)
             .then(todos => this.setState({ todos }))
-            .catch(error => console.log(error.message));
+            .catch(this.handleError);
     }
 
     handleStatusChange(id) {
-        let todos = this.state.todos.map(todo => {
-            if (todo.id === id) {
-                todo.completed = !todo.completed;
-            }
+        axios.patch(`/api/todos/${id}`)
+            .then(response => {
+                const todos = this.state.todos.map(todo => {
+                    if (todo.id === id) {
+                        todo = response.data;
+                    }
 
-            return todo;
-        });
+                    return todo;
+                });
 
-        this.setState({ todos });
+                this.setState({ todos });
+            })
+            .catch(this.handleError);
     }
 
     handleAdd(title) {
-        let todo = {
-            id: this.nextId(),
-            title,
-            completed: false
-        };
+        axios.post('/api/todos', { title })
+            .then(response => response.data)
+            .then(todo => {
+                const todos = [...this.state.todos, todo];
 
-        let todos = [...this.state.todos, todo];
-
-        this.setState({ todos });
+                this.setState({ todos });
+            })
+            .catch(this.handleError);
     }
 
     handleDelete(id) {
-        let todos = this.state.todos.filter(todo => todo.id !== id);
+        axios.delete(`/api/todos/${id}` )
+            .then(() => {
+                const todos = this.state.todos.filter(todo => todo.id !== id);
 
-        this.setState({ todos });
+                this.setState({ todos });
+            })
+            .catch(this.handleError);
     }
 
     handleEdit(id, title) {
-        let todos = this.state.todos.map(todo => {
-            if (todo.id === id) {
-                todo.title = title;
-            }
+        axios.put(`/api/todos/${id}`, { title })
+            .then(response => {
+                const todos = this.state.todos.map(todo => {
+                    if (todo.id === id) {
+                        todo = response.data;
+                    }
+        
+                    return todo;
+                });
+        
+                this.setState({ todos });
+            })
+            .catch(this.handleError);
+    }
 
-            return todo;
-        });
-
-        this.setState({ todos });
+    handleError(error) {
+        console.log(error);
     }
 
     render() {
@@ -79,6 +94,8 @@ class App extends React.Component {
                     component="section"
                     className="todo-list"
                     transitionName="slide"
+                    transitionEnter={true}
+                    transitionLeave={true}
                     transitionAppear={true}
                     transitionAppearTimeout={500}
                     transitionEnterTimeout={500}
@@ -93,6 +110,7 @@ class App extends React.Component {
                             onStatusChange={this.handleStatusChange}
                             onDelete={this.handleDelete}
                             onEdit={this.handleEdit}
+                            onChange={this.handleToggle}
                         /> )
                     }
                 </ReactCSSTransitionGroup>

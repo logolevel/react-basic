@@ -32,7 +32,7 @@ app.post('/api/todos', (req, res) => {
     res.send(todo);
 });
 
-app.put('/api/todos:id', (req, res) => {
+app.put('/api/todos/:id', (req, res) => {
     let todo = todos.find(todo => todo.id == req.params.id);
 
     if (!todo) return res.sendStatus(404);
@@ -42,7 +42,7 @@ app.put('/api/todos:id', (req, res) => {
     res.json(todo);
 });
 
-app.patch('/api/todos:id', (req, res) => {
+app.patch('/api/todos/:id', (req, res) => {
     let todo = todos.find(todo => todo.id == req.params.id);
 
     if (!todo) return res.sendStatus(404);
@@ -52,8 +52,8 @@ app.patch('/api/todos:id', (req, res) => {
     res.json(todo);
 });
 
-app.delete('/api/todos:id', (req, res) => {
-    let todo = todos.findIndex(todo => todo.id == req.params.id);
+app.delete('/api/todos/:id', (req, res) => {
+    let index = todos.findIndex(todo => todo.id == req.params.id);
 
         if (index === -1) return res.sendStatus(404);
 
