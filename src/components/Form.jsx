@@ -37,10 +37,10 @@ class Form extends React.Component {
                 <input
                     type="text"
                     value={this.state.title}
-                    placeholder="Что нужно сделать?"
+                    placeholder="What need to do?"
                     onChange={this.handleChange} />
 
-                <Button type="submit">Добавить</Button>
+                <Button type="submit">Add</Button>
             </form>
         );
     }
